@@ -1,0 +1,18 @@
+export const SELECTORS = {
+  placesList: ".places__list",
+  profileName: '.profile__title',
+  profileJob: '.profile__description',
+  editButton: '.profile__edit-button',
+  addButton: '.profile__add-button',
+  editPopup: '.popup_type_edit',
+  newCardPopup: '.popup_type_new-card',
+  imagePopup: '.popup_type_image',
+  imagePopupImage: '.popup__image',
+  imagePopupCaption: '.popup__caption',
+  formElement: '.popup__form',
+  nameInput: '.popup__input_type_name',
+  jobInput: '.popup__input_type_description',
+  cardNameInput: '.popup__input_type_card-name',
+  cardLinkInput: '.popup__input_type_url',
+  popups: '.popup',
+};

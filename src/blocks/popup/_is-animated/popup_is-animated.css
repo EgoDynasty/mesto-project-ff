@@ -1,0 +1,14 @@
+.popup_is-animated {
+    display: flex; 
+    visibility: visible; 
+    opacity: 1; 
+    pointer-events: auto; 
+    transition: visibility 0s 0.6s, opacity 0.6s; 
+}
+
+.popup {
+    visibility: hidden; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: visibility 0s 0.6s, opacity 0.6s; 
+}
