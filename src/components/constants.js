@@ -9,7 +9,7 @@ export const SELECTORS = {
   imagePopup: '.popup_type_image',
   imagePopupImage: '.popup__image',
   imagePopupCaption: '.popup__caption',
-  formElement: '.popup__form',
+  profileForm: '.popup__form',
   nameInput: '.popup__input_type_name',
   jobInput: '.popup__input_type_description',
   cardNameInput: '.popup__input_type_card-name',

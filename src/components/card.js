@@ -14,7 +14,7 @@ export function createCard(data, onDelete, onLike, openImagePopup) {
   likeButton.addEventListener("click", onLike);
 
   cardImage.addEventListener('click', () => {
-    openImagePopup(data.link, data.name); // Используем переданную функцию
+    openImagePopup(data.link, data.name);
   });
 
   return cardElement;

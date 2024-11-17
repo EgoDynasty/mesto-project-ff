@@ -23,15 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const imagePopupImage = imagePopup.querySelector(SELECTORS.imagePopupImage);
   const imagePopupCaption = imagePopup.querySelector(SELECTORS.imagePopupCaption);
 
-  const formElement = editPopup.querySelector(SELECTORS.formElement);
+  const profileForm = editPopup.querySelector(SELECTORS.profileForm);
   const nameInput = editPopup.querySelector(SELECTORS.nameInput);
   const jobInput = editPopup.querySelector(SELECTORS.jobInput);
 
-  const newCardForm = newCardPopup.querySelector(SELECTORS.formElement);
+  const newCardForm = newCardPopup.querySelector(SELECTORS.profileForm);
   const cardNameInput = newCardPopup.querySelector(SELECTORS.cardNameInput);
   const cardLinkInput = newCardPopup.querySelector(SELECTORS.cardLinkInput);
 
-  // Функция для открытия попапа с изображением
   function openImagePopup(imageSrc, caption) {
     imagePopupImage.src = imageSrc;
     imagePopupImage.alt = caption;
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     placesList.appendChild(cardElement);
   });
 
-  function fillFormFields() {
+  function fillProfileFormFields() {
     if (profileName && profileJob) {
       nameInput.value = profileName.textContent;
       jobInput.value = profileJob.textContent;
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function handleFormSubmit(evt) {
+  function handleProfileFormSubmit(evt) {
     evt.preventDefault();
 
     const nameValue = nameInput.value;
@@ -84,11 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
     cardLinkInput.value = '';
   }
 
-  formElement.addEventListener('submit', handleFormSubmit);
+  profileForm.addEventListener('submit', handleProfileFormSubmit);
   newCardForm.addEventListener('submit', handleNewCardSubmit);
 
   editButton.addEventListener('click', () => {
-    fillFormFields();
+    fillProfileFormFields();
     openModal(editPopup);
   });
 
@@ -96,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const popups = document.querySelectorAll(SELECTORS.popups);
   popups.forEach(popup => {
-    const closeButton = popup.querySelector('.popup__close');
-    closeButton.addEventListener('click', () => closeModal(popup));
+    const closeProfileButton = popup.querySelector('.popup__close');
+    closeProfileButton.addEventListener('click', () => closeModal(popup));
     popup.addEventListener('click', (event) => {
       if (event.target === popup) {
         closeModal(popup);
@@ -106,8 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && openPopupElement) {
-      closeModal(openPopupElement);
+    if (event.key === 'Escape') {
+      const openPopup = document.querySelector('.popup_is-opened');
+      if (openPopup) {
+        closeModal(openPopup);
+      }
     }
   });
-});
+}); 
