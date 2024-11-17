@@ -1,16 +1,15 @@
-import avatarImage from './images/avatar.jpg'
+import avatarImage from './images/avatar.jpg';
 import './index.css';
 import { createCard, deleteCard, toggleLike } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { SELECTORS } from './components/constants.js';
-import { initialCards} from './components/cards.js';
+import { initialCards } from './components/cards.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const placesList = document.querySelector(SELECTORS.placesList);
   const profileName = document.querySelector(SELECTORS.profileName);
   const profileJob = document.querySelector(SELECTORS.profileJob);
-  const profileImage = document.querySelector('.profile__image')
+  const profileImage = document.querySelector('.profile__image');
   profileImage.style.backgroundImage = `url(${avatarImage})`;
 
   let openPopupElement = null;
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cardNameInput.value = '';
     cardLinkInput.value = '';
-  }
+  } 
 
   profileForm.addEventListener('submit', handleProfileFormSubmit);
   newCardForm.addEventListener('submit', handleNewCardSubmit);
@@ -94,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addButton.addEventListener('click', () => openModal(newCardPopup));
 
   const popups = document.querySelectorAll(SELECTORS.popups);
-  popups.forEach(popup => {
+ popups.forEach(popup => {
     const closeProfileButton = popup.querySelector('.popup__close');
     closeProfileButton.addEventListener('click', () => closeModal(popup));
     popup.addEventListener('click', (event) => {
@@ -103,13 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      const openPopup = document.querySelector('.popup_is-opened');
-      if (openPopup) {
-        closeModal(openPopup);
-      }
-    }
-  });
-}); 
+});
