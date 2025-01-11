@@ -12,3 +12,5 @@
 - JavaScript (ES6+)
 - Fetch API
 - HTML/CSS
+
+https://egodynasty.github.io/mesto-project-ff/
