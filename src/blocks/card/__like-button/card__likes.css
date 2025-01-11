@@ -1,0 +1,8 @@
+.card__likes {
+    position: absolute;
+    left: 7px;
+    top: calc(100%-10px);
+    font-size: 12px;
+    line-height: 15px;
+    color: #000;
+  }

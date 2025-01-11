@@ -6,12 +6,56 @@
   font-size: 14px;
   line-height: 18px;
   box-sizing: border-box;
-  padding: 10px 0 0;
+  padding: 28px 0 0;
   margin-bottom: 10px;
 }
 
 .popup__input:last-of-type {
   margin-bottom: 0;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid red;
+}
+
+.popup__input:invalid + .popup__input-error {
+  display: block;
+  color: red;
+}
+
+.popup__input-error {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+  z-index: 10;
+}
+
+.popup__input-error_visible {
+  display: block;
+}
+
+.popup__input-error_length {
+  color: red;
+}
+
+.popup__input-error_pattern {
+  color: red;
+}
+
+.popup__input-wrapper {
+  position: relative;
+}
+
+.popup__input-error_card-name {
+  margin-top: 5px;
+}
+
+.popup__input-error_link {
+  margin-top: 5px;
 }
 
 @media screen and (max-width: 568px) {
@@ -20,3 +64,5 @@
     line-height: 15px;
   }
 }
+
+

@@ -9,10 +9,12 @@ export const SELECTORS = {
   imagePopup: '.popup_type_image',
   imagePopupImage: '.popup__image',
   imagePopupCaption: '.popup__caption',
+  profileImage: '.profile__image',
   profileForm: '.popup__form',
   nameInput: '.popup__input_type_name',
   jobInput: '.popup__input_type_description',
   cardNameInput: '.popup__input_type_card-name',
   cardLinkInput: '.popup__input_type_url',
   popups: '.popup',
+  button: '.popup__button',
 };

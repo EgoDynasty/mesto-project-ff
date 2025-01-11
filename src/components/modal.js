@@ -18,4 +18,13 @@ export function openModal(popup) {
 export function closeModal(popup) {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', handleEscape);
+
+  const errors = popup.querySelectorAll('.popup__input-error');
+  errors.forEach((error) => {
+    error.textContent = '';
+    error.classList.remove('popup__input-error_visible');
+  });
+
+  const button = popup.querySelector('.popup__button');
+  button.disabled = false;
 }
