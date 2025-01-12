@@ -15,11 +15,11 @@ export function openModal(popup) {
   }, 1);
 }
 
-export function closeModal(popup) {
+export function closeModal(popup, errorSelector = '.popup__input-error') {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', handleEscape);
 
-  const errors = popup.querySelectorAll('.popup__input-error');
+  const errors = popup.querySelectorAll(errorSelector);
   errors.forEach((error) => {
     error.textContent = '';
     error.classList.remove('popup__input-error_visible');

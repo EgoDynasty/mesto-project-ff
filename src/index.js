@@ -4,8 +4,8 @@ import './index.css';
 import { openModal, closeModal } from './components/modal.js';
 import { SELECTORS } from './components/constants.js';
 import { initialCards } from './components/cards.js';
-import { form, enableValidation, clearValidation, validationConfig} from './components/validation.js'
-import { getUserInfo, updateUserInfo, addNewCard, putLike, deleteLike, updateAvatar } from './components/api.js';
+import { enableValidation, clearValidation, validationConfig} from './components/validation.js'
+import { getUserInfo, updateUserInfo, addNewCard, putLike, deleteLike, updateAvatar, getInitialCards } from './components/api.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const placesList = document.querySelector(SELECTORS.placesList);
@@ -57,38 +57,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const cohortId = 'wff-cohort-29';
 
   Promise.all([
-    fetch(`https://nomoreparties.co/v1/${cohortId}/users/me`, {
-      headers: {
-        authorization: token
-      }
-    }),
-    fetch(`https://nomoreparties.co/v1/${cohortId}/cards`, {
-      headers: {
-        authorization: token
-      }
-    })
-  ])
-    .then(([userData, cardsData]) => {
-      return Promise.all([userData.json(), cardsData.json()]);
-    })
-    .then(([userData, cardsData]) => {
-      console.log(userData);
-      console.log(cardsData);
-      const profileName = document.querySelector('.profile__title');
-      const profileJob = document.querySelector('.profile__description');
-      const profileImage = document.querySelector('.profile__image');
-  
-      profileName.textContent = userData.name;
-      profileJob.textContent = userData.about;
-      
-      if (profileImage) {
-        profileImage.style.backgroundImage = `url(${userData.avatar})`;
-      }
-  
-      const placesList = document.querySelector('.places__list');
-      placesList.innerHTML = '';
-  
-      cardsData.forEach((card) => {
+  getUserInfo(token, cohortId),
+  getInitialCards(token, cohortId)
+])
+  .then(([userData, cardsData]) => {
+    console.log(userData);
+    console.log(cardsData);
+    const profileName = document.querySelector('.profile__title');
+    const profileJob = document.querySelector('.profile__description');
+    const profileImage = document.querySelector('.profile__image');
+
+    profileName.textContent = userData.name;
+    profileJob.textContent = userData.about;
+    
+    if (profileImage) {
+      profileImage.style.backgroundImage = `url(${userData.avatar})`;
+    }
+
+    const placesList = document.querySelector('.places__list');
+    placesList.innerHTML = '';
+
+    cardsData.forEach((card) => {
       if (card.link && card.name) {
         const isLikedByMe = card.likes.some((like) => like._id === userData._id);
         const cardElement = createCard(card, deleteCard, toggleLike, openImagePopup, isLikedByMe);
@@ -122,15 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const jobValue = jobInput.value;
     
       updateUserInfo(token, cohortId, nameValue, jobValue)
-        .then((data) => {
-          console.log(data);
-          profileName.textContent = data.name;
-          profileJob.textContent = data.about;
-          profileImage.src = data.avatar;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  .then((data) => {
+    console.log(data);
+    profileName.textContent = data.name;
+    profileJob.textContent = data.about;
+    profileImage.src = data.avatar;
+    closeModal(editPopup);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    const button = editPopup.querySelector('.popup__button');
+    button.textContent = 'Сохранить';
+    button.disabled = false;
+  });
+
     
       getUserInfo(token, cohortId)
         .then((data) => {
@@ -143,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error(err);
         });
     
-      closeModal(editPopup);
     }
 
     function handleNewCardSubmit(evt) {
@@ -156,14 +151,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const cardLinkValue = cardLinkInput.value;
       
       addNewCard(cardNameValue, cardLinkValue)
-        .then((data) => {
-          const newCardElement = createCard(data, deleteCard, toggleLike, openImagePopup, true);
-          placesList.prepend(newCardElement);
-          closeModal(newCardPopup);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  .then((data) => {
+    const newCardElement = createCard(data, deleteCard, toggleLike, openImagePopup, true);
+    placesList.prepend(newCardElement);
+    closeModal(newCardPopup);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    const button = newCardPopup.querySelector('.popup__button');
+    button.textContent = 'Создать';
+    button.disabled = false;
+  });
 
   closeModal(newCardPopup);
   cardNameInput.value = '';
@@ -218,9 +218,19 @@ avatarForm.addEventListener('submit', (evt) => {
   button.disabled = true;
   
   const avatarLink = avatarForm.querySelector('.popup__input_type_avatar-link').value;
-  updateAvatar(avatarLink);
-  profileImage.style.backgroundImage = `url(${avatarLink})`;
-  closeModal(avatarPopup);
+  updateAvatar(avatarLink)
+  .then((data) => {
+    profileImage.style.backgroundImage = `url(${avatarLink})`;
+    closeModal(avatarPopup);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    const button = avatarPopup.querySelector('.popup__button');
+    button.textContent = 'Обновить';
+    button.disabled = false;
+  });
 });
 
   addButton.addEventListener('click', () => openModal(newCardPopup));
@@ -239,5 +249,5 @@ avatarForm.addEventListener('submit', (evt) => {
 
 enableValidation(validationConfig);
 
-
-clearValidation(form, validationConfig);
+const formElement = document.querySelector('.popup__form');
+clearValidation(validationConfig, formElement)
