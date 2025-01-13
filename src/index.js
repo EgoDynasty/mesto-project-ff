@@ -165,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
     button.disabled = false;
   });
 
-  closeModal(newCardPopup);
   cardNameInput.value = '';
   cardLinkInput.value = '';
 }

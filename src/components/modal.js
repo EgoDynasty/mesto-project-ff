@@ -1,3 +1,5 @@
+import { validationConfig, clearValidation } from "./validation";
+
 function handleEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_is-opened');
@@ -15,16 +17,8 @@ export function openModal(popup) {
   }, 1);
 }
 
-export function closeModal(popup, errorSelector = '.popup__input-error') {
+export function closeModal(popup) {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', handleEscape);
-
-  const errors = popup.querySelectorAll(errorSelector);
-  errors.forEach((error) => {
-    error.textContent = '';
-    error.classList.remove('popup__input-error_visible');
-  });
-
-  const button = popup.querySelector('.popup__button');
-  button.disabled = false;
+  clearValidation (validationConfig, popup)
 }
