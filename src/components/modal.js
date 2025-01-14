@@ -20,5 +20,4 @@ export function openModal(popup) {
 export function closeModal(popup) {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', handleEscape);
-  clearValidation (validationConfig, popup)
 }

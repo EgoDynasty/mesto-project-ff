@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           profileImage.src = data.avatar;
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err); 
         });
     
     }
@@ -202,6 +202,7 @@ function toggleLike(event) {
   editButton.addEventListener('click', () => {
     fillProfileFormFields();
     openModal(editPopup);
+    clearValidation(validationConfig, editPopup);
   });
 
 profileImage.addEventListener('click', () => {
@@ -232,7 +233,10 @@ avatarForm.addEventListener('submit', (evt) => {
   });
 });
 
-  addButton.addEventListener('click', () => openModal(newCardPopup));
+addButton.addEventListener('click', () => {
+  openModal(newCardPopup);
+  clearValidation(validationConfig, newCardPopup);
+});
 
   const popups = document.querySelectorAll(SELECTORS.popups);
  popups.forEach(popup => {
@@ -247,6 +251,3 @@ avatarForm.addEventListener('submit', (evt) => {
 });
 
 enableValidation(validationConfig);
-
-const formElement = document.querySelector('.popup__form');
-clearValidation(validationConfig, formElement)
