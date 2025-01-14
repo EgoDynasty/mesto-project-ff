@@ -207,6 +207,7 @@ function toggleLike(event) {
 
 profileImage.addEventListener('click', () => {
   openModal(avatarPopup);
+  clearValidation(validationConfig, avatarPopup)
 });
 
 const avatarForm = document.querySelector('.popup__form_avatar');
